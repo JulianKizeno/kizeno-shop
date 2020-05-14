@@ -1,17 +1,5 @@
-import React, { Component } from 'react'
-import Container from 'react-bootstrap/Container'
-import ProfileService from '../../../service/profile.service'
+import React from 'react'
 
-
-class Profile extends Component {
-    render() {
-        return(
-            <Container>
-                <h1>KIZENO SHOP</h1>
-            </Container>
-        )
-    }
-}
-
+const Profile = props => <h1>¡Bienvend@, {props.loggedInUser.username}!</h1>
 
 export default Profile

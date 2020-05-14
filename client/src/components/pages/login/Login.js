@@ -39,7 +39,7 @@ class Login extends Component {
         this.authService.login(this.state.loginInfo)
             .then(response => {
                 this.props.setTheUser(response.data)
-                this.props.history.push('/profile')
+                this.props.history.push('/')
             })
             .catch(err => console.log(err))
     }
@@ -85,6 +85,5 @@ class Login extends Component {
         )
     }
 }
-
 
 export default Login

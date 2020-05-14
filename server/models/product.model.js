@@ -6,7 +6,11 @@ const productSchema = new Schema({
         type: String,
         enum: ['handbag', 'purse', 'shoes', 'belt', 'wallet', 'coin purse', 'card case']
     }, 
-    img: String,
+    img: {
+        type: String,
+        required: true,
+        default: 'https://www.eluniversal.com.mx/sites/default/files/styles/f01-1023x630/public/2017/01/24/deultima_moda_bolsos_1.png?itok=BVBpuPhy'
+    },
     stock: Number,
     name: String,
     price: String,
