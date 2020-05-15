@@ -9,7 +9,7 @@ const productSchema = new Schema({
     img: {
         type: String,
         required: true,
-        default: 'https://www.eluniversal.com.mx/sites/default/files/styles/f01-1023x630/public/2017/01/24/deultima_moda_bolsos_1.png?itok=BVBpuPhy'
+        default: 'https://www.bon-bonite.com/wp-content/uploads/2020/01/179197-A.png'
     },
     stock: Number,
     name: String,

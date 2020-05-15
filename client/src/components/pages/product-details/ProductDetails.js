@@ -36,20 +36,19 @@ class ProductDetails extends Component {
                 <h1>{this.state.name}</h1>
                 <hr />
                 <Row>
-                    <Col md={{ span: 4, offset: 1 }}>
-                        <h4>Info</h4>
-                        <p>{this.state.leatherType}</p>
-                        <h4>Detalles técnicos</h4>
+                    <Col md={{ span: 5, offset: 1 }}>
+                        <h4>Details</h4>
                         <ul>
-                            <li>Leather Type: {this.props.name}</li>
-                            <li>Inversiones: {this.state.inversions}</li>
+                            <li>Category: {this.state.category}</li>
+                            <li>Price: {this.state.price}</li>
+                            <li>Leather Type: {this.state.leatherType}</li>
                         </ul>
                     </Col>
                     <Col md={6}>
-                        <img src={this.state.imageUrl} alt={this.state.title}></img>
+                        <img src={this.state.img} alt={this.state.name}></img>
                     </Col>
                 </Row>
-                <Link to="/products" className="btn btn-dark">Volver</Link>
+                <Link to="/products" className="btn btn-dark">Back</Link>
             </Container>
         )
     }

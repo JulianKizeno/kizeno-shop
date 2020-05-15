@@ -1,8 +1,9 @@
 .products-list .card{   
     margin-bottom: 30px;
+    border: none;
 }
 
 .products-list img {
-    height: 160px;
+    height: 250px;
     object-fit: cover;
 }

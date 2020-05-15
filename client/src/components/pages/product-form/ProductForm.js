@@ -11,11 +11,10 @@ class ProductForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            title: '',
-            description: '',
-            length: 0,
-            inversions: 0,
-            imageUrl: ''
+            name: '',
+            price: '',
+            category: '',
+            imgURL: ''
         }
         this.productService = new ProductService()
     }
@@ -40,31 +39,27 @@ class ProductForm extends Component {
         return (
             <Container>
 
-                <h1>Nueva montaña rusa</h1>
+                <h1>New Product</h1>
                 <hr></hr>
                 <Form onSubmit={this.handleSubmit}>
-                    <Form.Group controlId="title">
-                        <Form.Label>Nombre</Form.Label>
-                        <Form.Control name="title" type="text" value={this.state.title} onChange={this.handleInputChange} />
+                    <Form.Group controlId="name">
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control name="name" type="text" value={this.state.name} onChange={this.handleInputChange} />
                     </Form.Group>
-                    <Form.Group controlId="desc">
-                        <Form.Label>Descripcion</Form.Label>
-                        <Form.Control name="description" type="text" value={this.state.description} onChange={this.handleInputChange} />
+                    <Form.Group controlId="price">
+                        <Form.Label>Price</Form.Label>
+                        <Form.Control name="price" type="text" value={this.state.price} onChange={this.handleInputChange} />
                     </Form.Group>
-                    <Form.Group controlId="inv">
-                        <Form.Label>Inversiones</Form.Label>
-                        <Form.Control name="inversions" type="text" value={this.state.inversions} onChange={this.handleInputChange} />
+                    <Form.Group controlId="catego">
+                        <Form.Label>Category</Form.Label>
+                        <Form.Control name="category" type="text" value={this.state.category} onChange={this.handleInputChange} />
                     </Form.Group>
-                    <Form.Group controlId="len">
-                        <Form.Label>Longitud</Form.Label>
-                        <Form.Control name="length" type="text" value={this.state.length} onChange={this.handleInputChange} />
+                    <Form.Group controlId="image">
+                        <Form.Label>URL-image</Form.Label>
+                        <Form.Control name="imgURL" type="text" value={this.state.img} onChange={this.handleInputChange} />
                     </Form.Group>
-                    <Form.Group controlId="img">
-                        <Form.Label>Imagen (URL)</Form.Label>
-                        <Form.Control name="imageUrl" type="text" value={this.state.imageUrl} onChange={this.handleInputChange} />
-                    </Form.Group>
-                    <Button variant="dark" onClick={() => this.props.closeModal()} style={{ marginRight: '10px' }}>Cerrar</Button>
-                    <Button variant="dark" type="submit">Crear montaña rusa</Button>
+                    <Button variant="dark" onClick={() => this.props.closeModal()} style={{ marginRight: '10px' }}>Close</Button>
+                    <Button variant="dark" type="submit">Create</Button>
                 </Form>
             </Container>
         )

@@ -48,6 +48,15 @@ class ProductList extends Component {
         this.getAllProducts()
     }
 
+    handleDelete = (productId) =>{
+        this.productService.deleteProduct(productId)
+            .then(response => {
+                let products = [...this.state.products].filter(product => product._id !== response.data.deletedProduct)
+                this.setState({products})
+            })
+            .catch(err => console.log(err))
+    }
+
     finishProductPost = () => {
         this.getAllProducts()
         this.handleModal(false)
@@ -60,10 +69,10 @@ class ProductList extends Component {
 
                 <h1>These are our Products</h1>
 
-                {this.props.loggedInUser && <Button onClick={() => this.handleModal(true)} variant="dark" style={{ marginBottom: '20px' }}>Crear nueva montaña rusa</Button>}
+                <Button onClick={() => this.handleModal(true)} variant="dark" style={{ marginBottom: '20px' }}>Create a new product</Button>
 
                 <Row className="products-list">
-                    {this.state.products.map(elm => <ProductCard key={elm._id} {...elm} />)}
+                    {this.state.products.map(elm => <ProductCard deleteProduct={() => this.handleDelete(elm._id)} key={elm._id} {...elm} />)}
                 </Row>
 
 
@@ -72,7 +81,6 @@ class ProductList extends Component {
                         <ProductForm finishProductPost={this.finishProductPost} closeModal={() => this.handleModal(false)} />
                     </Modal.Body>
                 </Modal>
-
 
                 <Toast onClose={() => this.handletoast(false)} show={this.state.toast.show} delay={3000} autohide>
                     <Toast.Header>

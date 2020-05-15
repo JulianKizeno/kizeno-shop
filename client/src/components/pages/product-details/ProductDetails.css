@@ -1,3 +1,23 @@
 .product-details img {
     width: 100%
 }
+
+.offset-md-1{
+    margin: auto 0;
+    margin-left: 8.3%;
+}
+
+ul{
+    list-style: none;
+}
+
+.btn-dark{
+    color: #fff;
+    background-color: #e3b3af;
+    border-color: white;
+}
+
+.btn-dark:hover{
+    background-color: #e3b3af;
+    border-color: white;
+}
