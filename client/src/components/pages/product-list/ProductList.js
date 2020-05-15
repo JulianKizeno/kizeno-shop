@@ -38,7 +38,7 @@ class ProductList extends Component {
     }
 
     getAllProducts = () => {
-        this.productService .getProducts()
+        this.productService.getProducts()
             .then(response => this.setState({ products: response.data }))
             .catch(err => console.log(err))
     }
@@ -47,7 +47,6 @@ class ProductList extends Component {
     componentDidMount = () => {
         this.getAllProducts()
     }
-
 
     finishProductPost = () => {
         this.getAllProducts()
@@ -59,7 +58,7 @@ class ProductList extends Component {
         return (
             <Container as="section">
 
-                <h1>Listado de montañas rusas</h1>
+                <h1>These are our Products</h1>
 
                 {this.props.loggedInUser && <Button onClick={() => this.handleModal(true)} variant="dark" style={{ marginBottom: '20px' }}>Crear nueva montaña rusa</Button>}
 

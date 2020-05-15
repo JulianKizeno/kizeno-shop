@@ -33,15 +33,15 @@ class ProductDetails extends Component {
     render() {
         return (
             <Container as="section" className="product-details">
-                <h1>{this.state.title}</h1>
+                <h1>{this.state.name}</h1>
                 <hr />
                 <Row>
                     <Col md={{ span: 4, offset: 1 }}>
                         <h4>Info</h4>
-                        <p>{this.state.description}</p>
+                        <p>{this.state.leatherType}</p>
                         <h4>Detalles técnicos</h4>
                         <ul>
-                            <li>Longitud: {this.state.length}</li>
+                            <li>Leather Type: {this.props.name}</li>
                             <li>Inversiones: {this.state.inversions}</li>
                         </ul>
                     </Col>

@@ -11,10 +11,10 @@ const ProductCard = props => {
     return (
         <Col lg={3} md={6}>
             <Card as="article">
-                <Card.Img variant="top" src={props.imageUrl} />
+                <Card.Img variant="top" src={props.img} />
                 <Card.Body>
-                    <Card.Title>{props.title}</Card.Title>
-                    <Link to={`/products/${props._id}`} className="btn btn-dark btn-block btn-sm">Ver detalles</Link>
+                    <Card.Title>{props.name}</Card.Title>
+                    <Link to={`/products/${props.id}`} className="btn btn-dark btn-block btn-sm">Ver detalles</Link>
                 </Card.Body>
             </Card>
         </Col>

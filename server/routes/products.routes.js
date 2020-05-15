@@ -3,7 +3,7 @@ const router = express.Router()
 
 const Product = require('../models/product.model')
 
-router.get('/', (req, res, next) => {
+router.get('/allProducts', (req, res, next) => {
     Product.find()
         .then(data => res.json(data)) 
         .catch(err => console.log(err))

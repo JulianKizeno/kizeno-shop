@@ -8,7 +8,7 @@ export default class services {
         })
     }
 
-    getProducts = () => this.service.get('/allProducts')
-    getProduct = productId => this.service.get(`/oneProduct/${productId}`)
-    saveProduct = theProduct => this.service.post(`/postProduct`, theProduct)
+    getProducts = () => this.service.get('products/allProducts')
+    getProduct = productId => this.service.get(`products/oneProduct/${productId}`)
+    saveProduct = theProduct => this.service.post(`products/postProduct`, theProduct)
 }
