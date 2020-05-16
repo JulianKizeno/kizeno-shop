@@ -5,45 +5,47 @@ const Product = require('../models/product.model')
 
 router.get('/allProducts', (req, res, next) => {
     Product.find()
-    .then(data => res.json(data)) 
-    .catch(err => console.log(err))
+    .then(data => res.status(200).json(data)) 
+    .catch(err => {res.status(500).json({message: err.message, status: 500})})
 })
 
 router.get('/oneProduct/:id', (req, res, next) => {
     Product.findById(req.params.id)
-    .then(data => res.json(data))
-    .catch(err => console.log(err))
+    .then(data => res.status(200).json(data))
+    .catch(err => {res.status(500).json({message: err.message, status: 500})})
 })
 
 router.post('/postProduct', (req, res, next) => {
     Product.create(req.body)
-    .then(data => res.json(data))
-    .catch(err => console.log(err))
+    .then(data => res.status(200).json(data))
+    .catch(err => {res.status(500).json({message: err.message, status: 500})})
 })
 
 router.post('/:id/update', (req, res, next) => {
 
     const {category, name, price, leatherType} = req.body
-    const { id } = req.params;
 
     Product.findByIdAndUpdate(req.params.id, {category, name, price, leatherType})
     .then(() => {
-        res.status(200).json({ message: `Product ${id} updated` });
+        console.log(deletedProduct)
+        res.status(200).json({ updatedProduct: updatedProduct._id });
       })
-    .catch(err => console.log(err))
+    .catch(err => {res.status(500).json({message: err.message, status: 500})})
 })
 
 router.post('/:id/delete', (req, res, next) => {
 
     const {category, name, price, leatherType} = req.body
-    const { id } = req.params;
 
     Product.findByIdAndRemove(req.params.id, {category, name, price, leatherType})
     .then((deletedProduct) => {
         console.log(deletedProduct)
         res.status(200).json({ deletedProduct : deletedProduct._id });
       })
-    .catch(err => console.log(err))
+    .catch(err => {
+        console.log(err)
+        return res.status(500).json({message: err.message, status: 500})
+    })
 })
 
 module.exports = router

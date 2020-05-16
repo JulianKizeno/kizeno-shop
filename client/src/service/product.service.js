@@ -11,7 +11,6 @@ export default class services {
     getProducts = () => this.service.get('products/allProducts')
     getProduct = productId => this.service.get(`products/oneProduct/${productId}`)
     saveProduct = theProduct => this.service.post(`products/postProduct`, theProduct)
-    deleteProduct = id => this.service.post(`products/${id}/delete`, id);
-
-
+    deleteProduct = id => this.service.post(`products/${id}/delete`, id)
+    updateProduct = updProduct => this.service.post(`products/${updProduct}/update`, updProduct)
 }

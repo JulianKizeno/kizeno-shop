@@ -23,7 +23,7 @@ class ProductList extends Component {
                 show: false,
                 text: ''
             },
-                products: []
+            products: []
         }
         this.productService = new ProductService()
     }
@@ -43,7 +43,6 @@ class ProductList extends Component {
             .catch(err => console.log(err))
     }
 
-
     componentDidMount = () => {
         this.getAllProducts()
     }
@@ -52,6 +51,15 @@ class ProductList extends Component {
         this.productService.deleteProduct(productId)
             .then(response => {
                 let products = [...this.state.products].filter(product => product._id !== response.data.deletedProduct)
+                this.setState({products})
+            })
+            .catch(err => console.log(err))
+    }
+
+    handleUpdate = (productId) =>{
+        this.productService.updateProduct(productId)
+            .then(response => {
+                let products = [...this.state.products].filter(product => product._id !== response.data.updatedProduct)
                 this.setState({products})
             })
             .catch(err => console.log(err))
@@ -72,9 +80,8 @@ class ProductList extends Component {
                 <Button onClick={() => this.handleModal(true)} variant="dark" style={{ marginBottom: '20px' }}>Create a new product</Button>
 
                 <Row className="products-list">
-                    {this.state.products.map(elm => <ProductCard deleteProduct={() => this.handleDelete(elm._id)} key={elm._id} {...elm} />)}
+                    {this.state.products.map(elm => <ProductCard updateProduct={() => this.handleUpdate(elm._id)} deleteProduct={() => this.handleDelete(elm._id)} key={elm._id} {...elm} />)}
                 </Row>
-
 
                 <Modal show={this.state.modalShow} onHide={() => this.handleModal(false)}>
                     <Modal.Body>
@@ -89,7 +96,6 @@ class ProductList extends Component {
                     </Toast.Header>
                     <Toast.Body>{this.state.toast.text}</Toast.Body>
                 </Toast>
-
 
             </Container>
         )

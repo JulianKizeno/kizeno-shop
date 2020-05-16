@@ -5,6 +5,12 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
+import Button from 'react-bootstrap/Button'
+import Modal from 'react-bootstrap/Modal'
+import EditProductForm from '../product-form/EditProductForm'
+
+
+
 import './ProductDetails.css'
 
 import { Link } from 'react-router-dom'
@@ -13,10 +19,14 @@ class ProductDetails extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {}
+        this.state = {
+            modalShow: false
+        }
         this.productService = new ProductService()
     }
 
+    showModal = () => this.setState({ modalShow : true})
+    hideModal = () => this.setState({ modalShow : false})
 
     getProductInfo() {
         const id = this.props.match.params.productId
@@ -33,6 +43,13 @@ class ProductDetails extends Component {
     render() {
         return (
             <Container as="section" className="product-details">
+
+                <Modal show={this.state.modalShow} onHide={this.hideModal}>
+                    <Modal.Body>
+                        <EditProductForm hideModalWindow={this.hideModal}/>
+                    </Modal.Body>
+                </Modal>
+
                 <h1>{this.state.name}</h1>
                 <hr />
                 <Row>
@@ -49,6 +66,8 @@ class ProductDetails extends Component {
                     </Col>
                 </Row>
                 <Link to="/products" className="btn btn-dark">Back</Link>
+                <Button onClick={this.showModal} variant="dark" className="btn btn-dark">Edit</Button>
+
             </Container>
         )
     }

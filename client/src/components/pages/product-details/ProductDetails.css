@@ -11,13 +11,13 @@ ul{
     list-style: none;
 }
 
-.btn-dark{
-    color: #fff;
-    background-color: #e3b3af;
+.btn{
+    color: #222529;
+    background-color:#fcecee;
     border-color: white;
 }
 
-.btn-dark:hover{
-    background-color: #e3b3af;
+.btn:hover{
+    background-color:  #fcecee;
     border-color: white;
 }
