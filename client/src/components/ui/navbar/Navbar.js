@@ -4,6 +4,7 @@ import Nav from 'react-bootstrap/Nav'
 
 import AuthService from './../../../service/auth.service'
 
+
 import { Link } from 'react-router-dom'
 
 
@@ -12,12 +13,22 @@ class Navigation extends Component {
 
     constructor(props) {
         super(props)
+        this.state = {}
         this.authService = new AuthService()
     }
 
     logout = () => {
         this.props.setTheUser(false)
         this.authService.logout()
+    }
+
+    getCartCount = () => {
+        const product = this.props.cart.filter(elm => elm.id === this.state._id)
+        if(product.length){
+            return product[0].count
+        }else{
+            return 0
+        }
     }
 
     render() {
@@ -43,11 +54,11 @@ class Navigation extends Component {
                                     <Nav.Link as="div"><Link to="/profile">My Profile</Link></Nav.Link>
                                     <Nav.Link as="div" onClick={this.logout}>Logout</Nav.Link>
                                 </>
-
                         }
 
                     </Nav>
                     <Navbar.Text className="ml-auto"> Hello, {this.props.loggedInUser ? this.props.loggedInUser.username : 'Guest'}</Navbar.Text>
+                    <Navbar.Text className="ml-auto"> CART {this.getCartCount()}</Navbar.Text>
                 </Navbar.Collapse>
 
             </Navbar>

@@ -18,12 +18,36 @@ class App extends Component {
 
   constructor() {
     super()
-    this.state = { loggedInUser: null }
+    this.state = { 
+      loggedInUser: null, 
+      cart: [] 
+    }
     this.authService = new AuthService()
+    
   }
 
 
   setTheUser = userObj => this.setState({ loggedInUser: userObj }, () => console.log('El estado de App ha cambiado:', this.state))
+  // setTheProduct = productObj => this.setState({ loggedInUser: userObj }, () => console.log('El estado de App ha cambiado:', this.state))
+
+  addToCart = (productId) =>{
+    let cart = this.state.cart
+    console.log(cart)
+    if(cart.filter(elm => elm.id === productId).length){
+      cart = cart.map(elm => {
+        if(elm.id === productId){
+          elm.count ++
+        }
+        return elm
+      })
+    }else{
+      cart.push({
+        id: productId,
+        count: 1
+      })
+    }
+    this.setState({cart})   
+ }
 
   fetchUser = () => {
     if (this.state.loggedInUser === null) {
@@ -40,13 +64,13 @@ class App extends Component {
 
     return (
       <>
-        <Navigation setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} />
+        <Navigation cart={this.state.cart} setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} />
 
         <main>
 
           <Switch>
             <Route path="/products" exact render={() => <ProductList loggedInUser={this.state.loggedInUser} />} />
-            <Route path="/products/oneProduct/:productId" render={props => <ProductDetails {...props} />} />
+            <Route path="/products/oneProduct/:productId" render={props => <ProductDetails addToCart={this.addToCart} {...props} />} />
             <Route path="/signup" render={props => <Signup {...props} setTheUser={this.setTheUser} />} />
             <Route path="/login" render={props => <Login {...props} setTheUser={this.setTheUser} />} />
             <Route path="/profile" render={() => this.state.loggedInUser ? <Profile loggedInUser={this.state.loggedInUser} /> : <Redirect to="/" />} />

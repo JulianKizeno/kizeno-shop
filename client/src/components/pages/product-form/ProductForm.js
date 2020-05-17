@@ -24,7 +24,7 @@ class ProductForm extends Component {
         const { name, value } = e.target
 
         this.setState({
-            [name]: value
+            [name]: value 
         })
     }
 

@@ -22,13 +22,12 @@ router.post('/postProduct', (req, res, next) => {
 })
 
 router.post('/:id/update', (req, res, next) => {
-
-    const {category, name, price, leatherType} = req.body
-
-    Product.findByIdAndUpdate(req.params.id, {category, name, price, leatherType})
-    .then(() => {
-        console.log(deletedProduct)
-        res.status(200).json({ updatedProduct: updatedProduct._id });
+    
+    console.log(req.body)
+    Product.findByIdAndUpdate(req.params.id, req.body)
+    .then(updatedProduct => {
+        console.log(updatedProduct)
+        res.status(200).json(updatedProduct);
       })
     .catch(err => {res.status(500).json({message: err.message, status: 500})})
 })
@@ -42,10 +41,8 @@ router.post('/:id/delete', (req, res, next) => {
         console.log(deletedProduct)
         res.status(200).json({ deletedProduct : deletedProduct._id });
       })
-    .catch(err => {
-        console.log(err)
-        return res.status(500).json({message: err.message, status: 500})
-    })
+    .catch(err => {res.status(500).json({message: err.message, status: 500})})
+
 })
 
 module.exports = router

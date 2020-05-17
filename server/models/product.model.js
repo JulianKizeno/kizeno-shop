@@ -9,7 +9,6 @@ const productSchema = new Schema({
     img: {
         type: String,
         required: true,
-        default: 'https://www.bon-bonite.com/wp-content/uploads/2020/01/179197-A.png'
     },
     stock: Number,
     name: String,

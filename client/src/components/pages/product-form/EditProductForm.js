@@ -11,11 +11,12 @@ class EditProductForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: '',
-            price: '',
-            category: '',
-            imgURL: ''
+            name: this.props.name,
+            price: this.props.price,
+            category: this.props.category,
+            img: this.props.img
         }
+        console.log(props)
         this.productService = new ProductService()
     }
 
@@ -29,9 +30,9 @@ class EditProductForm extends Component {
 
     handleSubmit = e => {
         e.preventDefault()
-        this.productService.updateProduct(this.state)
-            .then( () => this.props.hideModalWindow())
-            .catch(err => console.log(err))
+        this.productService.updateProduct(this.props._id, this.state)
+        .then(() => this.props.finishProductPost())
+        .catch(err => console.log(err))
     }
     
 
@@ -56,7 +57,7 @@ class EditProductForm extends Component {
                     </Form.Group>
                     <Form.Group controlId="image">
                         <Form.Label>URL-image</Form.Label>
-                        <Form.Control name="imgURL" type="text" value={this.state.imgURL} onChange={this.handleInputChange} />
+                        <Form.Control name="img" type="text" value={this.state.img} onChange={this.handleInputChange} />
                     </Form.Group>
                     <Button variant="dark" onClick={() => this.props.closeModal()} style={{ marginRight: '10px' }}>Close</Button>
                     <Button variant="dark" type="submit">Save Changes</Button>

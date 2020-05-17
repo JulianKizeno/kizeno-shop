@@ -20,12 +20,13 @@ class ProductDetails extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            modalShow: false
+            modalShow: false,
         }
+        console.log(props)
         this.productService = new ProductService()
     }
 
-    showModal = () => this.setState({ modalShow : true})
+    handleModal = visible => this.setState({ modalShow: visible })
     hideModal = () => this.setState({ modalShow : false})
 
     getProductInfo() {
@@ -35,8 +36,12 @@ class ProductDetails extends Component {
             .catch(err => console.log(err))
     }
 
-
     componentDidMount = () => {
+        this.getProductInfo()
+    }
+
+    finishProductPost = () => {
+        this.handleModal(false)
         this.getProductInfo()
     }
 
@@ -44,9 +49,9 @@ class ProductDetails extends Component {
         return (
             <Container as="section" className="product-details">
 
-                <Modal show={this.state.modalShow} onHide={this.hideModal}>
+                <Modal show={this.state.modalShow} onHide={() => this.handleModal(false)}>
                     <Modal.Body>
-                        <EditProductForm hideModalWindow={this.hideModal}/>
+                        <EditProductForm finishProductPost={this.finishProductPost} hideModalWindow={this.hideModal} {...this.state} closeModal={() => this.handleModal(false)}/>
                     </Modal.Body>
                 </Modal>
 
@@ -58,7 +63,6 @@ class ProductDetails extends Component {
                         <ul>
                             <li>Category: {this.state.category}</li>
                             <li>Price: {this.state.price}</li>
-                            <li>Leather Type: {this.state.leatherType}</li>
                         </ul>
                     </Col>
                     <Col md={6}>
@@ -66,7 +70,8 @@ class ProductDetails extends Component {
                     </Col>
                 </Row>
                 <Link to="/products" className="btn btn-dark">Back</Link>
-                <Button onClick={this.showModal} variant="dark" className="btn btn-dark">Edit</Button>
+                <Button onClick={() => this.handleModal(true)} variant="dark" className="btn btn-dark">Edit</Button>
+                <Button onClick={() => this.props.addToCart(this.state._id)} variant="dark" className="btn btn-dark">Add to Cart </Button>
 
             </Container>
         )

@@ -50,16 +50,8 @@ class ProductList extends Component {
     handleDelete = (productId) =>{
         this.productService.deleteProduct(productId)
             .then(response => {
+                console.log(response)
                 let products = [...this.state.products].filter(product => product._id !== response.data.deletedProduct)
-                this.setState({products})
-            })
-            .catch(err => console.log(err))
-    }
-
-    handleUpdate = (productId) =>{
-        this.productService.updateProduct(productId)
-            .then(response => {
-                let products = [...this.state.products].filter(product => product._id !== response.data.updatedProduct)
                 this.setState({products})
             })
             .catch(err => console.log(err))
@@ -80,7 +72,7 @@ class ProductList extends Component {
                 <Button onClick={() => this.handleModal(true)} variant="dark" style={{ marginBottom: '20px' }}>Create a new product</Button>
 
                 <Row className="products-list">
-                    {this.state.products.map(elm => <ProductCard updateProduct={() => this.handleUpdate(elm._id)} deleteProduct={() => this.handleDelete(elm._id)} key={elm._id} {...elm} />)}
+                    {this.state.products.map(elm => <ProductCard deleteProduct={() => this.handleDelete(elm._id)} key={elm._id} {...elm} />)}
                 </Row>
 
                 <Modal show={this.state.modalShow} onHide={() => this.handleModal(false)}>
