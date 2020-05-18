@@ -6,10 +6,7 @@ body {
 
 h1, h2, h3, h4, strong {
   font-weight: 400;
-}
-
-h1 {
-  margin-bottom: 30px;
+  margin-top: 85px;
 }
 
 a, a:hover {
@@ -17,7 +14,7 @@ a, a:hover {
   text-decoration: none;
 }
 .navbar {
-  margin-bottom: 40px
+  padding: 5px
 }
 
 .toast {

@@ -45,7 +45,7 @@ class ProductDetails extends Component {
         this.getProductInfo()
     }
 
-    render() {
+    render() { 
         return (
             <Container as="section" className="product-details">
 
@@ -58,6 +58,16 @@ class ProductDetails extends Component {
                 <h1>{this.state.name}</h1>
                 <hr />
                 <Row>
+                    <Col md={6}>
+                        <Row style={{justifyContent: 'center', marginTop: '30px'}}>
+                            <Link to="/products" className="btn btn-dark">Back</Link>
+                            <Button onClick={() => this.handleModal(true)} variant="dark" className="btn btn-dark">Edit</Button>
+                            <Button onClick={() => this.props.addToCart(this.state._id)} variant="dark" className="btn btn-dark">Add to Cart </Button>
+                        </Row>
+                        <Row>
+                            <img src={this.state.img} alt={this.state.name}></img>
+                        </Row>
+                    </Col>
                     <Col md={{ span: 5, offset: 1 }}>
                         <h4>Details</h4>
                         <ul>
@@ -65,14 +75,8 @@ class ProductDetails extends Component {
                             <li>Price: {this.state.price}</li>
                         </ul>
                     </Col>
-                    <Col md={6}>
-                        <img src={this.state.img} alt={this.state.name}></img>
-                    </Col>
                 </Row>
-                <Link to="/products" className="btn btn-dark">Back</Link>
-                <Button onClick={() => this.handleModal(true)} variant="dark" className="btn btn-dark">Edit</Button>
-                <Button onClick={() => this.props.addToCart(this.state._id)} variant="dark" className="btn btn-dark">Add to Cart </Button>
-
+                
             </Container>
         )
     }

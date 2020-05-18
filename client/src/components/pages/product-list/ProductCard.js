@@ -20,10 +20,9 @@ class ProductCard extends Component {
         return (
             <Col lg={3} md={6}>
                 <Card as="article">
-                    <Card.Img variant="top" src={this.props.img} />
+                <Link to={`/products/oneProduct/${this.props._id}`} ><Card.Img variant="top" src={this.props.img} /></Link>
                     <Card.Body>
                         <Card.Title>{this.props.name}</Card.Title>
-                        <Link to={`/products/oneProduct/${this.props._id}`} className="btn btn-dark btn-block btn-sm">Details</Link>
                         <Button onClick={this.props.deleteProduct}  className="btn btn-dark btn-block btn-sm">Delete</Button>
                     </Card.Body>
                 </Card>

@@ -25,7 +25,7 @@ class ProductList extends Component {
             },
             products: []
         }
-        this.productService = new ProductService()
+        this.productService = new ProductService() 
     }
 
 
@@ -66,10 +66,14 @@ class ProductList extends Component {
     render() {
         return (
             <Container as="section">
+                <Row style={{justifyContent: 'center', marginBottom: 'auto'}}>
+                    <h1>Products</h1>
+                </Row>
+                    <hr/>
+                <Row style={{justifyContent: 'center'}}>
+                    <Button onClick={() => this.handleModal(true)} variant="dark" style={{ marginBottom: '50px'}}>Create a new product</Button>
+                </Row>
 
-                <h1>These are our Products</h1>
-
-                <Button onClick={() => this.handleModal(true)} variant="dark" style={{ marginBottom: '20px' }}>Create a new product</Button>
 
                 <Row className="products-list">
                     {this.state.products.map(elm => <ProductCard deleteProduct={() => this.handleDelete(elm._id)} key={elm._id} {...elm} />)}

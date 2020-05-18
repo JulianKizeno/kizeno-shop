@@ -1,5 +1,6 @@
 .product-details img {
-    width: 100%
+    width: 100%;
+    object-fit: cover
 }
 
 .offset-md-1{
@@ -12,6 +13,9 @@ ul{
 }
 
 .btn{
+    margin-right: 20px;
+}
+/* .btn{
     color: #222529;
     background-color:#fcecee;
     border-color: white;
@@ -20,4 +24,4 @@ ul{
 .btn:hover{
     background-color:  #fcecee;
     border-color: white;
-}
+} */

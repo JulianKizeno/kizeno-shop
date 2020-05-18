@@ -19,6 +19,7 @@ require('./configs/locals.config')(app)
 // Base URLS
 app.use('/api', require('./routes/auth.routes'))
 app.use('/api/products', require('./routes/products.routes'))
+app.use('/api/cart', require('./routes/cart.routes'))
 
 
 module.exports = app

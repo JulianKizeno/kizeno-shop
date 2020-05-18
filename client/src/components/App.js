@@ -8,6 +8,7 @@ import './App.css'
 import Navigation from './ui/navbar/Navbar'
 import ProductList from './pages/product-list/ProductList'
 import ProductDetails from './pages/product-details/ProductDetails'
+import CartList from './pages/cart/CartList'
 import Signup from './pages/signup/Signup'
 import Login from './pages/login/Login'
 import Profile from './pages/profile/Profile'
@@ -55,7 +56,7 @@ class App extends Component {
         .then(response => this.setTheUser(response.data))
         .catch(() => this.setTheUser(false))
     }
-  }
+  } 
 
 
   render() {
@@ -70,7 +71,8 @@ class App extends Component {
 
           <Switch>
             <Route path="/products" exact render={() => <ProductList loggedInUser={this.state.loggedInUser} />} />
-            <Route path="/products/oneProduct/:productId" render={props => <ProductDetails addToCart={this.addToCart} {...props} />} />
+            <Route path="/products/oneProduct/:productId" render={props => <ProductDetails cart={this.state.cart} addToCart={this.addToCart} {...props} />} />
+            <Route path="/cart" render={(props) => <CartList {...props}/>} />
             <Route path="/signup" render={props => <Signup {...props} setTheUser={this.setTheUser} />} />
             <Route path="/login" render={props => <Login {...props} setTheUser={this.setTheUser} />} />
             <Route path="/profile" render={() => this.state.loggedInUser ? <Profile loggedInUser={this.state.loggedInUser} /> : <Redirect to="/" />} />
