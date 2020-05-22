@@ -14,13 +14,13 @@ const cartSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    subtotal: Number,
+    qtyProducts: Number,
     total: Number 
 }, 
 {
-    timestamps: true 
+    timestamps: true
 })
 
-const Cart = mongoose.model("Cart", cartSchema)
+const Cart = mongoose.model("Cart", cartSchema) 
 
 module.exports = Cart

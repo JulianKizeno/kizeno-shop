@@ -5,7 +5,12 @@
     {
       "src": "kizeno-02.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "20x20"
+    },
+    {
+      "src": "left-arrow.png",
+      "type": "image/png",
+      "sizes": "20x20"
     }
   ],
   "start_url": ".",

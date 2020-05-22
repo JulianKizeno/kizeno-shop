@@ -1,9 +1,4 @@
-.products-list .card{   
-    margin-bottom: 30px;
-    border: none;
-}
-
-.products-list img {
-    height: 200px;
+.product-list img {
     object-fit: cover;
+    height: 350px;
 }

@@ -27,24 +27,27 @@ class App extends Component {
     
   }
 
+  setTheUser = userObj => this.setState({ loggedInUser: userObj })
 
-  setTheUser = userObj => this.setState({ loggedInUser: userObj }, () => console.log('El estado de App ha cambiado:', this.state))
-  // setTheProduct = productObj => this.setState({ loggedInUser: userObj }, () => console.log('El estado de App ha cambiado:', this.state))
+  addToCart = (productInfo) =>{
+    
+    let cart = [...this.state.cart]
+    const timesProductInCart = cart.filter(elm => elm._id === productInfo._id).length
 
-  addToCart = (productId) =>{
-    let cart = this.state.cart
-    console.log(cart)
-    if(cart.filter(elm => elm.id === productId).length){
+    if(timesProductInCart){
       cart = cart.map(elm => {
-        if(elm.id === productId){
-          elm.count ++
+        if(elm._id === productInfo._id){
+          elm.price += productInfo.price
+          elm.count++
         }
         return elm
       })
     }else{
       cart.push({
-        id: productId,
-        count: 1
+        _id: productInfo._id,
+        product: productInfo,
+        count: 1,
+        price: productInfo.price
       })
     }
     this.setState({cart})   
@@ -61,18 +64,20 @@ class App extends Component {
 
   render() {
 
+    console.log(this.state.cart)
+
     this.fetchUser()
 
     return (
       <>
-        <Navigation cart={this.state.cart} setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} />
+        <Navigation cart={this.state.cart} setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} /> 
 
         <main>
 
           <Switch>
-            <Route path="/products" exact render={() => <ProductList loggedInUser={this.state.loggedInUser} />} />
-            <Route path="/products/oneProduct/:productId" render={props => <ProductDetails cart={this.state.cart} addToCart={this.addToCart} {...props} />} />
-            <Route path="/cart" render={(props) => <CartList {...props}/>} />
+            <Route path="/products" exact render={props => <ProductList loggedInUser={this.state.loggedInUser} {...props} />} />
+            <Route path="/products/oneProduct/:productId" render={props => <ProductDetails loggedInUser={this.state.loggedInUser} cart={this.state.cart} addToCart={this.addToCart} {...props} />} />
+            <Route path="/cart" exact render={props => <CartList cart={this.state.cart} loggedInUser={this.state.loggedInUser} {...props} />} />
             <Route path="/signup" render={props => <Signup {...props} setTheUser={this.setTheUser} />} />
             <Route path="/login" render={props => <Login {...props} setTheUser={this.setTheUser} />} />
             <Route path="/profile" render={() => this.state.loggedInUser ? <Profile loggedInUser={this.state.loggedInUser} /> : <Redirect to="/" />} />

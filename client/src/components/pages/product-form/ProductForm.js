@@ -14,7 +14,7 @@ class ProductForm extends Component {
             name: '',
             price: '',
             category: '',
-            imgURL: ''
+            img: ''
         }
         this.productService = new ProductService()
     }
@@ -24,7 +24,7 @@ class ProductForm extends Component {
         const { name, value } = e.target
 
         this.setState({
-            [name]: value 
+            [name]: value  
         })
     }
 
@@ -56,7 +56,7 @@ class ProductForm extends Component {
                     </Form.Group>
                     <Form.Group controlId="image">
                         <Form.Label>URL-image</Form.Label>
-                        <Form.Control name="imgURL" type="text" value={this.state.img} onChange={this.handleInputChange} />
+                        <Form.Control name="img" type="text" value={this.state.img} onChange={this.handleInputChange} />
                     </Form.Group>
                     <Button variant="dark" onClick={() => this.props.closeModal()} style={{ marginRight: '10px' }}>Close</Button>
                     <Button variant="dark" type="submit">Create</Button>

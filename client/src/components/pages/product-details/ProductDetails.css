@@ -1,20 +1,51 @@
 .product-details img {
     width: 100%;
-    object-fit: cover
+    margin-left: 16.3%;
+    object-fit: contain;
 }
 
+.product-details hr{
+    margin-left: 160px;
+  }
+
 .offset-md-1{
-    margin: auto 0;
-    margin-left: 8.3%;
+    margin: 90px 0;
+    margin-left: 16.3%;
+}
+
+h1{
+    text-align: end;
+}
+
+h4{
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 1.8em;
 }
 
 ul{
-    list-style: none;
+    padding: 0;
 }
 
-.btn{
-    margin-right: 20px;
+li{
+    list-style: none;
+    text-align: start;
+    font-size: 1.1em;
 }
+
+.product-details{
+    margin: 0;
+    padding: 0;
+}
+
+.add-to-cart{
+    width: 100%;
+    margin: 0;
+    margin-bottom: 30px;
+    padding: 10px ;
+  }
+  
+
 /* .btn{
     color: #222529;
     background-color:#fcecee;

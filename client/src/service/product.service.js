@@ -10,9 +10,7 @@ export default class services {
 
     getProducts = () => this.service.get('products/allProducts')
     getProduct = productId => this.service.get(`products/oneProduct/${productId}`)
-    getProductsFromCart = () => this.service.get(`cart/allProducts`)
-    getOneProductFromCart = () => this.service.get(`cart/allProducts`)
     saveProduct = theProduct => this.service.post(`products/postProduct`, theProduct)
     deleteProduct = id => this.service.post(`products/${id}/delete`, id)
-    updateProduct = (id, updProduct) => this.service.post(`products/${id}/update`, updProduct)
+    updateProduct = (id, updProduct) => this.service.post(`products/${id}/update`, updProduct) 
 }

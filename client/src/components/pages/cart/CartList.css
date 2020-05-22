@@ -1,0 +1,24 @@
+Table th{
+    font-weight: bolder;
+    font-size: 1.5em;
+}
+
+.table tr th{
+    border: 1px solid #ccc;
+    background-color: white;
+    text-align: center;
+}
+
+.table{
+    padding: 220px;
+    margin-top: 20px;
+}
+
+.product-picture {
+    width: 150px;
+    height: 150px; 
+}
+
+.back-btn-cart{
+    margin-bottom: 20px;
+}

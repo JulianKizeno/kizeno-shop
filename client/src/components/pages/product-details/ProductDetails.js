@@ -5,7 +5,6 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
-import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import EditProductForm from '../product-form/EditProductForm'
 
@@ -15,21 +14,20 @@ import './ProductDetails.css'
 
 import { Link } from 'react-router-dom'
 
-class ProductDetails extends Component {
+class ProductDetails extends Component { 
 
     constructor(props) {
         super(props)
         this.state = {
             modalShow: false,
         }
-        console.log(props)
         this.productService = new ProductService()
     }
 
     handleModal = visible => this.setState({ modalShow: visible })
     hideModal = () => this.setState({ modalShow : false})
 
-    getProductInfo() {
+    getProductInfo = () => {
         const id = this.props.match.params.productId
         this.productService.getProduct(id)
             .then(response => this.setState(response.data))
@@ -37,7 +35,7 @@ class ProductDetails extends Component {
     }
 
     componentDidMount = () => {
-        this.getProductInfo()
+        this.getProductInfo()  
     }
 
     finishProductPost = () => {
@@ -45,40 +43,67 @@ class ProductDetails extends Component {
         this.getProductInfo()
     }
 
-    render() { 
+    render() {  
         return (
-            <Container as="section" className="product-details">
+          <Container as="section" className="product-details">
+            <Modal
+              show={this.state.modalShow}
+              onHide={() => this.handleModal(false)}
+            >
+              <Modal.Body>
+                <EditProductForm
+                  finishProductPost={this.finishProductPost}
+                  hideModalWindow={this.hideModal}
+                  {...this.state}
+                  closeModal={() => this.handleModal(false)}
+                />
+              </Modal.Body>
+            </Modal>
 
-                <Modal show={this.state.modalShow} onHide={() => this.handleModal(false)}>
-                    <Modal.Body>
-                        <EditProductForm finishProductPost={this.finishProductPost} hideModalWindow={this.hideModal} {...this.state} closeModal={() => this.handleModal(false)}/>
-                    </Modal.Body>
-                </Modal>
-
-                <h1>{this.state.name}</h1>
-                <hr />
-                <Row>
-                    <Col md={6}>
-                        <Row style={{justifyContent: 'center', marginTop: '30px'}}>
-                            <Link to="/products" className="btn btn-dark">Back</Link>
-                            <Button onClick={() => this.handleModal(true)} variant="dark" className="btn btn-dark">Edit</Button>
-                            <Button onClick={() => this.props.addToCart(this.state._id)} variant="dark" className="btn btn-dark">Add to Cart </Button>
-                        </Row>
-                        <Row>
-                            <img src={this.state.img} alt={this.state.name}></img>
-                        </Row>
-                    </Col>
-                    <Col md={{ span: 5, offset: 1 }}>
-                        <h4>Details</h4>
-                        <ul>
-                            <li>Category: {this.state.category}</li>
-                            <li>Price: {this.state.price}</li>
-                        </ul>
-                    </Col>
+            <h1>{this.state.name}</h1>
+            <hr />
+            <Row>
+              <Col md={6}>
+                <Link to="/products" className="button back-btn" style={{marginLeft: '30%'}}>
+                  Products
+                </Link>
+                <Row style={{ justifyContent: "center", marginTop: "30px" }}>
+                    { 
+                        this.props.loggedInUser &&
+                        this.props.loggedInUser.role === "ADMIN" && (
+                        <>
+                            <button onClick={() => this.handleModal(true)} className="button back-btn" style={{marginLeft: '30%', marginBottom: '20px'}}>
+                            Edit
+                            </button>
+                        </>
+                        )
+                    }
                 </Row>
-                
-            </Container>
-        )
+                <Row>
+                  <img src={this.state.img} alt={this.state.name} />
+                </Row>
+              </Col>
+              <Col md={{ span: 4, offset: 1 }}>
+                {this.props.loggedInUser &&
+                  this.props.loggedInUser.role === "CLIENT" && (
+                    <>
+                      <button
+                        onClick={() => this.props.addToCart(this.state)}
+                        className="button add-to-cart"
+                      >
+                        Add to Cart{" "}
+                      </button>
+                    </>
+                  )}
+                <h4>D · e · t · a · i · l · s</h4>
+                <ul>
+                  <li>Category: {this.state.category}</li>
+                  <li>Price: {this.state.price}</li>
+                </ul>
+              </Col>
+            </Row>
+          </Container>
+        );
     }
 }
 
