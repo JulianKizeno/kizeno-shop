@@ -1,9 +1,23 @@
 const express = require("express")
 const router = express.Router()
+
+// Reject structured query operators before authentication or database lookups.
+router.use(['/login', '/signup'], (req, res, next) => {
+    if (req.method !== 'POST') return next()
+    const body = req.body || {}
+    if (typeof body.username !== 'string' || !body.username.trim() ||
+        body.username.length > 128 || typeof body.password !== 'string' ||
+        !body.password || Buffer.byteLength(body.password, 'utf8') > 72) {
+        return res.status(400).json({ message: 'Invalid credentials format' })
+    }
+    return next()
+})
+
 const passport = require("passport")
 
 const User = require("../models/user.model")
 const bcrypt = require("bcrypt")
+const publicUser = user => ({ _id: user._id, username: user.username, email: user.email, role: user.role })
 
 
 
@@ -18,7 +32,7 @@ router.post('/signup', (req, res, next) => {
         return;
     }
 
-    if (password.length < 2) {
+    if (password.length < 8) {
         res.status(400).json({ message: 'Please make your password at least 8 characters long for security purposes.' });
         return;
     }
@@ -59,8 +73,8 @@ router.post('/signup', (req, res, next) => {
                 }
 
                 // Send the user's information to the frontend
-                // We can use also: res.status(200).json(req.user);
-                res.status(200).json(aNewUser);
+                // We can use also: res.status(200).json(publicUser(req.user));
+                res.status(200).json(publicUser(aNewUser));
             });
         });
     });
@@ -93,7 +107,7 @@ router.post('/login', (req, res, next) => {
             }
 
             // We are now logged in (that's why we can also send req.user)
-            res.status(200).json(theUser);
+            res.status(200).json(publicUser(theUser));
         });
     })(req, res, next);
 });
@@ -102,15 +116,17 @@ router.post('/login', (req, res, next) => {
 
 router.post('/logout', (req, res, next) => {
     // req.logout() is defined by passport
-    req.logout();
-    res.status(200).json({ message: 'Log out success!' });
+    req.logout(err => {
+        if (err) return next(err);
+        res.status(200).json({ message: 'Log out success!' });
+    });
 });
 
 
 router.get('/loggedin', (req, res, next) => {
     // req.isAuthenticated() is defined by passport
     if (req.isAuthenticated()) {
-        res.status(200).json(req.user);
+        res.status(200).json(publicUser(req.user));
         return;
     }
     res.status(403).json({ message: 'Unauthorized' });
