@@ -1,7 +1,23 @@
 const express = require('express')
 const router = express.Router()
+const { requireAdmin } = require('../middleware/authorization')
 
 const Product = require('../models/product.model')
+// Explicit fields prevent client-supplied update operators and protected fields.
+const productFields = body => {
+    const result = {}
+    for (const key of ['category', 'name', 'leatherType', 'img']) {
+        if (typeof body[key] === 'string') result[key] = body[key]
+    }
+    for (const key of ['price', 'stock']) {
+        if ((typeof body[key] === 'number' || typeof body[key] === 'string') &&
+            body[key] !== '' && Number.isFinite(Number(body[key])) && Number(body[key]) >= 0) {
+            result[key] = Number(body[key])
+        }
+    }
+    return result
+}
+
 
 router.get('/allProducts', (req, res, next) => {
     Product.find()
@@ -15,16 +31,15 @@ router.get('/oneProduct/:id', (req, res, next) => {
     .catch(err => {res.status(500).json({message: err.message, status: 500})})
 })
 
-router.post('/postProduct', (req, res, next) => {
-    Product.create(req.body)
+router.post('/postProduct', requireAdmin, (req, res, next) => {
+    Product.create(productFields(req.body))
     .then(data => res.status(200).json(data))
     .catch(err => {res.status(500).json({message: err.message, status: 500})})
 })
 
-router.post('/:id/update', (req, res, next) => {
+router.post('/:id/update', requireAdmin, (req, res, next) => {
     
-    console.log(req.body)
-    Product.findByIdAndUpdate(req.params.id, req.body)
+    Product.findByIdAndUpdate(req.params.id, { $set: productFields(req.body) }, { runValidators: true })
     .then(updatedProduct => {
         console.log(updatedProduct)
         res.status(200).json(updatedProduct);
@@ -32,7 +47,7 @@ router.post('/:id/update', (req, res, next) => {
     .catch(err => {res.status(500).json({message: err.message, status: 500})})
 })
 
-router.post('/:id/delete', (req, res, next) => {
+router.post('/:id/delete', requireAdmin, (req, res, next) => {
 
     const {category, name, price, leatherType} = req.body
 
