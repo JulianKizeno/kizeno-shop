@@ -4,10 +4,10 @@ This is a partial remediation, not a certification that the repository is free o
 
 ## client
 
-npm findings before: {"info": 0, "low": 9, "moderate": 129, "high": 69, "critical": 18, "total": 225}. After remediation: {"info": 0, "low": 8, "moderate": 126, "high": 46, "critical": 5, "total": 185}.
-Counts refer to dependency findings in this project, including development dependencies. Projects without a committed lockfile were first resolved to create an auditable baseline.
+npm findings before: {"info": 0, "low": 9, "moderate": 129, "high": 69, "critical": 18, "total": 225}. After remediation: {"info": 0, "low": 8, "moderate": 129, "high": 45, "critical": 0, "total": 182}.
+Counts refer to dependency findings in this project, including development dependencies. Projects without a committed lockfile were first resolved to create an auditable baseline. Production builds were checked on Node.js 24 with CI=true, npm ci --ignore-scripts --legacy-peer-deps and NODE_OPTIONS=--openssl-legacy-provider for legacy Webpack compatibility; these builds are not browser end-to-end tests.
 
-Production build/test result: `{   "project": "kizeno-shop/client",   "install_exit": 0,   "build_exit": 1 }`.
+Production build/test result: `{   "project": "kizeno-shop/client",   "install_exit": 0,   "build_exit": 0 }`.
 
 ### Remaining advisories
 
@@ -20,7 +20,7 @@ Do not treat compatible lockfile updates as completion of the framework migratio
 ## server
 
 npm findings before: {"info": 0, "low": 7, "moderate": 11, "high": 23, "critical": 6, "total": 47}. After remediation: {"info": 0, "low": 0, "moderate": 1, "high": 0, "critical": 0, "total": 1}.
-Counts refer to dependency findings in this project, including development dependencies. Projects without a committed lockfile were first resolved to create an auditable baseline.
+Counts refer to dependency findings in this project, including development dependencies. Projects without a committed lockfile were first resolved to create an auditable baseline. Production builds were checked on Node.js 24 with CI=true, npm ci --ignore-scripts --legacy-peer-deps and NODE_OPTIONS=--openssl-legacy-provider for legacy Webpack compatibility; these builds are not browser end-to-end tests.
 
 Real HTTP/MongoDB authentication integration tests: PASS.
 
