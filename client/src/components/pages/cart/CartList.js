@@ -31,23 +31,7 @@ class CartList extends Component {
       .catch((err) => console.log(err));
     };
 
-    total = () =>{
-      
-        let subtotal = this.state.cart.map(elm => {
-            if(elm.price === this.state.elm.price){
-                elm.price 
-            }
-        })
-        console.log(subtotal)
-        cart = cart.map(elm => {
-            if(elm._id === productInfo._id){
-              elm.price += productInfo.price
-              elm.count++
-            }
-            return elm
-          })
-        
-    }
+    total = () => this.state.cart.reduce((sum, item) => sum + Number(item.price || 0), 0)
 
   render() {
     return (
