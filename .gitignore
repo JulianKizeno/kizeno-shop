@@ -1,0 +1,3 @@
+
+# Install reproducibly from lockfiles; never commit dependency trees.
+node_modules/
