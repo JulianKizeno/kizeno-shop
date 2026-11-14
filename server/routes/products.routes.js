@@ -3,6 +3,12 @@ const router = express.Router()
 
 const Product = require('../models/product.model')
 
+const requireAdmin = (req, res, next) => {
+    if (!req.isAuthenticated()) return res.status(401).json({ message: 'Unauthorized' })
+    if (req.user.role !== 'ADMIN') return res.status(403).json({ message: 'Forbidden' })
+    next()
+}
+
 router.get('/allProducts', (req, res, next) => {
     Product.find()
     .then(data => res.status(200).json(data)) 
@@ -15,13 +21,13 @@ router.get('/oneProduct/:id', (req, res, next) => {
     .catch(err => {res.status(500).json({message: err.message, status: 500})})
 })
 
-router.post('/postProduct', (req, res, next) => {
+router.post('/postProduct', requireAdmin, (req, res, next) => {
     Product.create(req.body)
     .then(data => res.status(200).json(data))
     .catch(err => {res.status(500).json({message: err.message, status: 500})})
 })
 
-router.post('/:id/update', (req, res, next) => {
+router.post('/:id/update', requireAdmin, (req, res, next) => {
     
     console.log(req.body)
     Product.findByIdAndUpdate(req.params.id, req.body)
@@ -32,7 +38,7 @@ router.post('/:id/update', (req, res, next) => {
     .catch(err => {res.status(500).json({message: err.message, status: 500})})
 })
 
-router.post('/:id/delete', (req, res, next) => {
+router.post('/:id/delete', requireAdmin, (req, res, next) => {
 
     const {category, name, price, leatherType} = req.body
 
